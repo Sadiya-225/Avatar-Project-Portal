@@ -97,7 +97,7 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
           <Input
             type="number"
             placeholder="Years of Experience"
-            className="flex-1"
+            className="flex-1 placeholder:text-gray-300"
             {...register("experience", {
               valueAsNumber: true,
             })}
@@ -108,7 +108,7 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
           <Input
             type="text"
             placeholder="Skills (Comma Separated)"
-            className="flex-1"
+            className="flex-1 placeholder:text-gray-300 mb-3"
             {...register("skills")}
           />
           {errors.skills && (
@@ -119,15 +119,15 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
             control={control}
             render={({ field }) => (
               <RadioGroup onValueChange={field.onChange} {...field}>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 ml-2">
                   <RadioGroupItem value="Intermediate" id="intermediate" />
                   <Label htmlFor="intermediate">Intermediate</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 ml-2">
                   <RadioGroupItem value="Graduate" id="graduate" />
                   <Label htmlFor="graduate">Graduate</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 ml-2">
                   <RadioGroupItem value="Post Graduate" id="post-graduate" />
                   <Label htmlFor="post-graduate">Post Graduate</Label>
                 </div>
@@ -140,7 +140,7 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
           <Input
             type="file"
             accept=".pdf, .doc, .docx"
-            className="flex-1 file:text-gray-500"
+            className="flex-1 file:text-gray-500 mt-3"
             {...register("resume")}
           />
           {errors.resume && (
@@ -152,7 +152,12 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
           {loadingApply && (
             <BarLoader className="mt-4" width={"100%"} color="gray" />
           )}
-          <Button type="submit" variant="blue" size="lg">
+          <Button
+            type="submit"
+            variant="outline"
+            size="lg"
+            className="bg-primary/100"
+          >
             Apply
           </Button>
         </form>

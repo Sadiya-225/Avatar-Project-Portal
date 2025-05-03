@@ -1,6 +1,6 @@
-# Collab Sphere
+# Avatar Project Portal
 
-Collab Sphere is a collaborative platform designed to connect students with beginner-friendly open-source projects. It helps students find projects matching their skills and interests, while providing a space for project creators to find contributors and foster collaboration.
+Avatar Project Portal is a collaborative platform designed to connect students with beginner-friendly open-source projects. It helps students find projects matching their skills and interests, while providing a space for project creators to find contributors and foster collaboration.
 
 ## Features
 
@@ -28,8 +28,8 @@ Collab Sphere is a collaborative platform designed to connect students with begi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Sadiya-125/Project-Portal
-   cd Project-Portal
+   git clone https://github.com/Sadiya-125/Avatar-Project-Portal
+   cd Avatar-Project-Portal
    ```
 
 2. Install dependencies:

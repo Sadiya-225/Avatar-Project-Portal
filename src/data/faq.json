@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How do I share my project idea?",
+    "answer": "After creating an account, you can share your project idea by navigating to the 'Post a Project' section. Provide details about your project, required skills, and any specific requirements. This helps other students understand if they're a good fit for your project."
+  },
+  {
+    "question": "How can I find projects to contribute to?",
+    "answer": "You can browse available projects using various filters like project name, project type, or location. Each project listing shows the required skillset and project details to help you find the right match for your interests and abilities."
+  },
+  {
+    "question": "How do I express interest in a project?",
+    "answer": "When you find a project you're interested in, simply click the 'Apply' button. This notifies the project creator of your interest and allows them to reach out to you."
+  },
+  {
+    "question": "How does the discussion area work?",
+    "answer": "Each project has a dedicated discussion area where you can ask questions, share ideas, and collaborate with other interested students. This space helps maintain clear communication and keeps all project-related discussions organized in one place."
+  },
+  {
+    "question": "What kind of projects can I find here?",
+    "answer": "We host a variety of beginner-friendly open-source projects across different domains like web development, mobile apps, data science, and more. Projects are categorized by these domains and required skills to help you find the right match for your experience level."
+  }
+]

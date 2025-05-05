@@ -56,10 +56,13 @@ const Header = () => {
                 <Link to="/post-job">
                   <Button
                     variant="outline"
-                    className="flex items-center gap-2"
+                    className="hidden md:inline-flex items-center gap-2"
                   >
                     <PenBox className="h-4 w-4" />
-                    <span className="hidden md:block">Post a Project</span>
+                    Post a Project
+                  </Button>
+                  <Button variant="outline" className="md:hidden w-10 h-10 p-0">
+                    <PenBox className="h-4 w-4" />
                   </Button>
                 </Link>
               )}

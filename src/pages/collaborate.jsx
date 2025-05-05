@@ -121,21 +121,27 @@ const CollaboratePage = () => {
                 className="flex flex-col gap-4 p-6 bg-gradient-to-r from-black to-black rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
-                  <div className="font-semibold text-xl text-primary">{application.name}</div>
+                  <div className="font-semibold text-xl text-primary">
+                    {application.name}
+                  </div>
                   <div className="flex items-center gap-2 text-yellow-400">
                     <Star className="w-5 h-5" />
                     <span className="text-sm">Hired</span>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-2 text-gray-300">
                     <Award className="w-5 h-5" />
-                    <span className="text-base">Skills: {application.skills}</span>
+                    <span className="text-base">
+                      Skills: {application.skills}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-300">
                     <Clock className="w-5 h-5" />
-                    <span className="text-base">Experience: {application.experience} Years</span>
+                    <span className="text-base">
+                      Experience: {application.experience} Years
+                    </span>
                   </div>
                 </div>
               </div>
@@ -146,7 +152,7 @@ const CollaboratePage = () => {
 
       <div className="space-y-6">
         <h2 className="text-2xl sm:text-3xl font-bold">Chat Space</h2>
-        <div className="p-4 bg-gradient-to-r from-black to-black rounded-lg flex items-center w-1/6">
+        <div className="p-4 bg-gradient-to-r from-black to-black rounded-lg flex items-center w-fit ">
           <span className="font-mono text-lg text-white truncate block">
             {job?.chatspace || "N/A"}
           </span>
@@ -158,7 +164,7 @@ const CollaboratePage = () => {
                 setTimeout(() => setCopied(false), 1500);
               }
             }}
-            className="ml-2 p-2 rounded-full bg-primary hover:bg-primary/80 text-white transition-colors"
+            className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/80 text-white transition-colors"
             title="Copy to clipboard"
           >
             {copied ? (
@@ -169,7 +175,7 @@ const CollaboratePage = () => {
           </button>
         </div>
         <a
-          href="http://localhost:3000/"
+          href="https://react-firebase-chat-three-gamma.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-4"

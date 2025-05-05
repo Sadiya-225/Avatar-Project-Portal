@@ -20,13 +20,13 @@ const LandingPage = () => {
   return (
     <main className="flex flex-col gap-5 sm:gap-10 py-10 sm:py-20">
       <section className="text-center space-y-4 sm:space-y-6">
-        <h1 className="flex flex-col items-center justify-center gradient-title animate-gradient font-bold text-4xl sm:text-6xl lg:text-8xl tracking-tighter py-4">
+        <h1 className="flex flex-col items-center justify-center gradient-title animate-gradient font-bold text-5xl sm:text-6xl lg:text-8xl tracking-tighter py-4">
           Find Your Dream Project
           <span className="flex items-center gap-2 sm:gap-6">
             only at Avatar
           </span>
         </h1>
-        <p className="text-gray-300 sm:mt-4 text-xs sm:text-xl">
+        <p className="text-gray-300 sm:mt-4 text-base sm:text-xl">
           Explore thousands of open source projects and find the perfect project
           for you!
         </p>
@@ -69,7 +69,7 @@ const LandingPage = () => {
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="font-bold">For Students</CardTitle>
+            <CardTitle className="font-bold">For Contributers</CardTitle>
           </CardHeader>
           <CardContent>
             Discover beginner-friendly projects, connect with mentors, and build

@@ -121,7 +121,7 @@ const PostJob = () => {
             control={control}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
+                <SelectTrigger className="text-left">
                   <SelectValue placeholder="Project Location" />
                 </SelectTrigger>
                 <SelectContent>
@@ -141,7 +141,7 @@ const PostJob = () => {
             control={control}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
+                <SelectTrigger className="text-left">
                   <SelectValue placeholder="Project Type">
                     {field.value
                       ? companies?.find((com) => com.id === Number(field.value))
@@ -189,7 +189,7 @@ const PostJob = () => {
         {loadingCreateJob && (
           <BarLoader className="mt-4" width={"100%"} color="gray" />
         )}
-        <Button type="submit" variant="secondary" size="lg" className="mt-2">
+        <Button type="submit" size="lg" className="mt-2">
           Submit
         </Button>
       </form>

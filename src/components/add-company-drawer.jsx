@@ -64,17 +64,21 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
   return (
     <Drawer>
       <DrawerTrigger>
-        <Button type="button" size="sm" variant="secondary">
-          Add Project Type
-        </Button>
+        <Button type="button">Add Project Type</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle className="text-2xl font-bold">Add a New Project Type</DrawerTitle>
+          <DrawerTitle className="text-2xl font-bold">
+            Add a New Project Type
+          </DrawerTitle>
         </DrawerHeader>
         <form className="flex gap-2 p-4 pb-0">
           {/* Company Name */}
-          <Input placeholder="Project Type" {...register("name")} className="placeholder:text-gray-300"/>
+          <Input
+            placeholder="Project Type"
+            {...register("name")}
+            className="placeholder:text-gray-300"
+          />
 
           {/* Company Logo */}
           <Input

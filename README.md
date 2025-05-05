@@ -28,7 +28,7 @@ Avatar Project Portal is a collaborative platform designed to connect students w
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Sadiya-125/Avatar-Project-Portal
+   git clone https://github.com/Sadiya-125/Avatar-Project-Portal.git
    cd Avatar-Project-Portal
    ```
 

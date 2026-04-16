@@ -12,10 +12,15 @@ import {
   Star,
   Award,
   Clock,
+  LogOut,
 } from "lucide-react";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 
 import useFetch from "@/hooks/use-fetch";
 import { getSingleJob } from "@/api/apiJobs";
+import { TeamChat } from "@/components/team-chat";
+import { ChatAuth } from "@/components/chat-auth";
+import { auth } from "@/firebase-config";
 
 const CollaboratePage = () => {
   const { id } = useParams();
@@ -23,6 +28,9 @@ const CollaboratePage = () => {
   const clerk = useClerk();
   const [recruiterName, setRecruiterName] = useState("");
   const [copied, setCopied] = useState(false);
+  const [firebaseUser, setFirebaseUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [isInChat, setIsInChat] = useState(false);
 
   const {
     loading: loadingJob,
@@ -38,7 +46,7 @@ const CollaboratePage = () => {
 
   useEffect(() => {
     const fetchRecruiterName = async () => {
-      if (job?.recruiter_id) {
+      if (job?.recruiter_id && clerk?.users) {
         try {
           const recruiter = await clerk.users.getUser(job.recruiter_id);
           setRecruiterName(`${recruiter.firstName} ${recruiter.lastName}`);
@@ -49,7 +57,17 @@ const CollaboratePage = () => {
     };
 
     fetchRecruiterName();
-  }, [job?.recruiter_id, clerk]);
+  }, [job?.recruiter_id, clerk?.users]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Firebase auth state changed:", user?.email);
+      setFirebaseUser(user);
+      setAuthLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   if (!isLoaded || loadingJob) {
     return <BarLoader className="mt-4" width={"100%"} color="gray" />;
@@ -57,7 +75,7 @@ const CollaboratePage = () => {
 
   const isRecruiter = job?.recruiter_id === user?.id;
   const isHiredCandidate = job?.applications?.find(
-    (ap) => ap.candidate_id === user?.id && ap.status === "hired"
+    (ap) => ap.candidate_id === user?.id && ap.status === "hired",
   );
 
   if (!isRecruiter && !isHiredCandidate) {
@@ -151,11 +169,34 @@ const CollaboratePage = () => {
       </div>
 
       <div className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-bold">Chat Space</h2>
-        <div className="p-4 bg-gradient-to-r from-black to-black rounded-lg flex items-center w-fit ">
-          <span className="font-mono text-lg text-white truncate block">
-            {job?.chatspace || "N/A"}
-          </span>
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl sm:text-3xl font-bold">Team Chat Space</h2>
+          {firebaseUser && (
+            <button
+              onClick={async () => {
+                try {
+                  await signOut(auth);
+                  setFirebaseUser(null);
+                  setIsInChat(false);
+                } catch (error) {
+                  console.error("Error signing out:", error);
+                }
+              }}
+              className="flex items-center gap-2 bg-gradient-to-r from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 text-white border border-primary/30 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-semibold"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out</span>
+            </button>
+          )}
+        </div>
+
+        <div className="p-4 bg-gradient-to-r from-black to-black rounded-lg flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="text-gray-400 text-sm">Chat Room Code:</span>
+            <span className="font-mono text-lg text-white truncate block">
+              {job?.chatspace || "N/A"}
+            </span>
+          </div>
           <button
             onClick={() => {
               if (job?.chatspace) {
@@ -164,7 +205,7 @@ const CollaboratePage = () => {
                 setTimeout(() => setCopied(false), 1500);
               }
             }}
-            className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/80 text-white transition-colors"
+            className="p-2 rounded-full bg-primary hover:bg-primary/80 text-white transition-colors"
             title="Copy to clipboard"
           >
             {copied ? (
@@ -174,30 +215,30 @@ const CollaboratePage = () => {
             )}
           </button>
         </div>
-        <a
-          href="https://react-firebase-chat-three-gamma.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-4"
-        >
-          <button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200 text-lg flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
+
+        {authLoading ? (
+          <div className="p-6 bg-gradient-to-r from-black to-black rounded-xl border border-primary/20">
+            <p className="text-white/80">Loading chat...</p>
+          </div>
+        ) : !firebaseUser ? (
+          <ChatAuth setIsInChat={setIsInChat} />
+        ) : !isInChat ? (
+          <div className="p-6 bg-gradient-to-r from-black to-black rounded-xl border border-primary/20">
+            <p className="text-white/80 mb-4">
+              Enter the chat room to start communicating with your team.
+            </p>
+            <button
+              onClick={() => setIsInChat(true)}
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 6.75v-1.5A2.25 2.25 0 0015 3h-6a2.25 2.25 0 00-2.25 2.25v1.5m10.5 0h1.5A2.25 2.25 0 0121 9v6a2.25 2.25 0 01-2.25 2.25h-1.5m-10.5 0h-1.5A2.25 2.25 0 013 15V9a2.25 2.25 0 012.25-2.25h1.5m10.5 0v10.5A2.25 2.25 0 0115 21h-6a2.25 2.25 0 01-2.25-2.25V6.75"
-              />
-            </svg>
-            Go to Chat Platform
-          </button>
-        </a>
+              Enter Chat Room
+            </button>
+          </div>
+        ) : (
+          <div className="h-96 overflow-hidden rounded-xl">
+            <TeamChat room={job?.chatspace || "general"} />
+          </div>
+        )}
       </div>
     </div>
   );
